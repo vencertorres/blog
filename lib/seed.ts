@@ -6,15 +6,16 @@ export async function seed() {
             id SERIAL PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
             body TEXT NOT NULL,
-            "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+            "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+            slug VARCHAR(255) NOT NULL
         )
     `;
 
   console.log('Created "posts" table');
 
   await sql`
-        INSERT INTO posts (title, body)
-        VALUES ('First Blog Post', 'Welcome!')
+        INSERT INTO posts (title, body, slug)
+        VALUES ('First Blog Post', 'Welcome!', first-blog-post-1)
     `;
 
   console.log('Seeded "posts" table');

@@ -41,7 +41,7 @@ export default async function Home() {
               </div>
               <div className="group">
                 <h3 className="mt-3 text-lg font-semibold leading-6 group-hover:text-gray-600">
-                  <Link href="#">{post.title}</Link>
+                  <Link href={`/posts/${post.slug}`}>{post.title}</Link>
                 </h3>
                 <p className="mt-5 line-clamp-3 text-sm leading-6">
                   {post.body}
