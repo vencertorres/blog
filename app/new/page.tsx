@@ -26,7 +26,7 @@ export default async function CreatePost() {
   }
 
   return (
-    <div className="mx-auto max-w-[42rem] py-24 sm:py-32">
+    <>
       <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
         Create post
       </h1>
@@ -63,6 +63,6 @@ export default async function CreatePost() {
           </button>
         </form>
       </div>
-    </div>
+    </>
   );
 }

@@ -18,7 +18,9 @@ export default function RootLayout({
     <html lang="en" data-theme="light">
       <body className={inter.className}>
         <Navigation />
-        <main>{children}</main>
+        <main className="mx-auto max-w-[42rem] px-6 py-24 sm:py-32 lg:px-8">
+          {children}
+        </main>
       </body>
     </html>
   );

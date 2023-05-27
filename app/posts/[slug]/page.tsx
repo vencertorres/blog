@@ -29,7 +29,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
   const post = await getPost(params.slug);
 
   return (
-    <article className="prose mx-auto py-24">
+    <article className="prose">
       <header>
         <h1>{post.title}</h1>
         <small>by Author {format(post.createdAt, "LLLL dd, yyyy")}</small>
