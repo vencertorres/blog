@@ -1,7 +1,7 @@
 export interface Post {
-  id: number;
   title: string;
   body: string;
-  createdAt: Date;
+  created_at: Date;
   slug: string;
+  author: string;
 }

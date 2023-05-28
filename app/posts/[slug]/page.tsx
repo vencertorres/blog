@@ -6,8 +6,11 @@ import { notFound } from "next/navigation";
 
 async function getPost(slug: string) {
   try {
-    const { rows } = await sql<Post>`SELECT * FROM posts WHERE slug = ${slug}`;
-    return rows[0];
+    const { rows: posts } = await sql<Post>`
+      SELECT title, body, created_at, name as author FROM posts
+      INNER JOIN users ON posts.user_id = users.id WHERE slug = ${slug};
+    `;
+    return posts[0];
   } catch (error) {
     notFound();
   }
@@ -21,7 +24,7 @@ export async function generateMetadata({
   const post = await getPost(params.slug);
 
   return {
-    title: `${post.title} | by Author | Blog`,
+    title: `${post.title} | by ${post.author} | Blog`,
   };
 }
 
@@ -32,7 +35,9 @@ export default async function Post({ params }: { params: { slug: string } }) {
     <article className="prose">
       <header>
         <h1>{post.title}</h1>
-        <small>by Author {format(post.createdAt, "LLLL dd, yyyy")}</small>
+        <small>
+          by {post.author} {format(post.created_at, "LLLL dd, yyyy")}
+        </small>
       </header>
       <p>{post.body}</p>
     </article>
