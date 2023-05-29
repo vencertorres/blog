@@ -3,6 +3,8 @@ import { sql } from "@vercel/postgres";
 import { format, formatISO } from "date-fns";
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const { rows: posts } = await sql<Post>`
     SELECT title, body, slug, created_at, name as author FROM posts
