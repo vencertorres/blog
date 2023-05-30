@@ -1,8 +1,11 @@
 import { sql } from "@vercel/postgres";
+import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import slugify from "slugify";
 
 export default async function CreatePost() {
+  const session = await getServerSession();
+
   async function publish(data: FormData) {
     "use server";
 
@@ -13,8 +16,8 @@ export default async function CreatePost() {
     });
 
     await sql`
-          INSERT INTO posts(title, body, slug)
-          VALUES (${title}, ${body}, ${slug});
+          INSERT INTO posts(title, body, slug, user_id)
+          VALUES (${title}, ${body}, ${slug}, (SELECT id FROM users WHERE email = ${session?.user?.email}));
           `;
 
     redirect(`/posts/${slug}`);
