@@ -5,15 +5,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 async function getPost(slug: string) {
-  try {
-    const { rows: posts } = await sql<Post>`
+  const { rows: posts } = await sql<Post>`
       SELECT title, body, created_at, name as author FROM posts
       INNER JOIN users ON posts.user_id = users.id WHERE slug = ${slug};
     `;
-    return posts[0];
-  } catch (error) {
-    notFound();
-  }
+  return posts[0];
 }
 
 export async function generateMetadata({
@@ -23,6 +19,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const post = await getPost(params.slug);
 
+  if (!post) return notFound();
+
   return {
     title: `${post.title} | by ${post.author} | Blog`,
   };
@@ -30,6 +28,8 @@ export async function generateMetadata({
 
 export default async function Post({ params }: { params: { slug: string } }) {
   const post = await getPost(params.slug);
+
+  if (!post) return notFound();
 
   return (
     <article className="prose">
