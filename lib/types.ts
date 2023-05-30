@@ -9,7 +9,7 @@ export interface Post {
   author: string;
 }
 
-export type User = z.infer<typeof SignUpSchema> & { id: number };
+export type User = z.infer<typeof SignUpSchema>;
 
 export type SignInErrors = z.inferFlattenedErrors<typeof SignInSchema>;
 export type SignUpErrors = z.inferFlattenedErrors<typeof SignUpSchema>;

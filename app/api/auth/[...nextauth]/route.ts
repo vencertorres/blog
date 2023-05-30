@@ -13,7 +13,7 @@ const handler = NextAuth({
         try {
           const result = SignInSchema.parse(credentials);
 
-          const { rows: users } = await sql<User>`
+          const { rows: users } = await sql<User & { id: number }>`
             SELECT * FROM users WHERE email = ${result.email}
           `;
 
@@ -21,7 +21,7 @@ const handler = NextAuth({
           if (!match) throw new Error();
 
           return {
-            id: 1,
+            id: users[0].id,
             name: users[0].name,
             email: users[0].email,
           };
