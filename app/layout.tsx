@@ -19,9 +19,7 @@ export default function RootLayout({
       <body className={inter.className}>
         {/* @ts-expect-error Async Server Component */}
         <Navigation />
-        <main className="mx-auto max-w-[42rem] px-6 py-24 sm:py-32 lg:px-8">
-          {children}
-        </main>
+        {children}
       </body>
     </html>
   );

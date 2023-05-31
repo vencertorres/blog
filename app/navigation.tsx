@@ -6,7 +6,7 @@ export default async function Navigation() {
   const session = await getServerSession();
 
   return (
-    <nav className="navbar sticky top-0 border-b bg-base-200">
+    <nav className="navbar border-b">
       <div className="flex-1">
         <Link href="/" className="btn-ghost btn text-xl normal-case">
           Home
@@ -16,7 +16,9 @@ export default async function Navigation() {
         <ul className="menu menu-horizontal px-1">
           <li>
             {session ? (
-              <Link href="/new">Create post</Link>
+              <Link href="/new" className="btn text-base-100">
+                Create post
+              </Link>
             ) : (
               <Link href="/signin">Sign in</Link>
             )}

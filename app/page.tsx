@@ -12,7 +12,7 @@ export default async function Home() {
   `;
 
   return (
-    <>
+    <main className="mx-auto max-w-[42rem] px-6 py-24 sm:py-32 lg:px-8">
       <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
         Most recent
       </h2>
@@ -51,6 +51,6 @@ export default async function Home() {
           <p className="text-center">No posts yet.</p>
         )}
       </div>
-    </>
+    </main>
   );
 }

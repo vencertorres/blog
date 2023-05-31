@@ -1,6 +1,6 @@
 "use client";
 
-import TextInput from "@/components/textinput";
+import Errors from "@/components/errors";
 import { SignUpSchema } from "@/lib/schemas";
 import { SignUpErrors, User } from "@/lib/types";
 import { useRouter } from "next/navigation";
@@ -13,6 +13,7 @@ export default function Form({
   signUp: (credentials: User) => Promise<void>;
 }) {
   const router = useRouter();
+  const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<SignUpErrors>();
 
@@ -43,42 +44,69 @@ export default function Form({
   }
 
   return (
-    <>
+    <form action={action} className="space-y-2">
       <Toaster />
 
-      <form action={action}>
-        <TextInput
-          name="name"
+      <div className="form-control">
+        <label htmlFor="name" className="label">
+          <span className="label-text">Name</span>
+        </label>
+        <input
           type="text"
-          state={loading}
-          errors={errors?.fieldErrors?.name}
+          name="name"
+          id="name"
+          autoComplete="name"
+          className="input-bordered input w-full"
+          disabled={loading}
         />
+        <Errors errors={errors?.fieldErrors?.name} />
+      </div>
 
-        <TextInput
-          name="email"
+      <div className="form-control">
+        <label htmlFor="email" className="label">
+          <span className="label-text">Email</span>
+        </label>
+        <input
           type="email"
-          state={loading}
-          errors={errors?.fieldErrors?.email}
+          name="email"
+          id="email"
+          autoComplete="email"
+          className="input-bordered input w-full"
+          disabled={loading}
         />
+        <Errors errors={errors?.fieldErrors?.email} />
+      </div>
 
-        <TextInput
-          name="password"
-          type="password"
-          state={loading}
-          errors={errors?.fieldErrors?.password}
-        />
+      <div className="form-control">
+        <label htmlFor="password" className="label">
+          <span className="label-text">Password</span>
+        </label>
+        <div className="input-group">
+          <input
+            type={show ? "text" : "password"}
+            name="password"
+            id="password"
+            className="input-bordered input w-full"
+            disabled={loading}
+          />
+          <button
+            type="button"
+            onClick={() => setShow(!show)}
+            className="swap btn-square btn"
+          >
+            {show ? "Hide" : "Show"}
+          </button>
+        </div>
+        <label className="label">
+          <span className="label-text-alt">
+            Must be at least 8 characters long
+          </span>
+        </label>
+      </div>
 
-        <TextInput
-          name="confirm"
-          type="password"
-          state={loading}
-          errors={errors?.fieldErrors?.confirm}
-        />
-
-        <button className="btn-primary btn-block btn mt-4" disabled={loading}>
-          Sign in
-        </button>
-      </form>
-    </>
+      <button className="btn-block btn" disabled={loading}>
+        Sign in
+      </button>
+    </form>
   );
 }

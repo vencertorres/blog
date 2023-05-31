@@ -32,14 +32,16 @@ export default async function Post({ params }: { params: { slug: string } }) {
   if (!post) return notFound();
 
   return (
-    <article className="prose">
-      <header>
-        <h1>{post.title}</h1>
-        <small>
-          by {post.author} {format(post.created_at, "LLLL dd, yyyy")}
-        </small>
-      </header>
-      <p>{post.body}</p>
-    </article>
+    <main className="mx-auto max-w-[42rem] px-6 py-24 sm:py-32 lg:px-8">
+      <article className="prose">
+        <header>
+          <h1>{post.title}</h1>
+          <small>
+            by {post.author} {format(post.created_at, "LLLL dd, yyyy")}
+          </small>
+        </header>
+        <p>{post.body}</p>
+      </article>
+    </main>
   );
 }

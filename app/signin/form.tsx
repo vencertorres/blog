@@ -1,6 +1,6 @@
 "use client";
 
-import TextInput from "@/components/textinput";
+import Errors from "@/components/errors";
 import { SignInSchema } from "@/lib/schemas";
 import { SignInErrors } from "@/lib/types";
 import { signIn } from "next-auth/react";
@@ -51,37 +51,50 @@ export default function Form() {
   }
 
   return (
-    <>
+    <form action={action}>
       <Toaster />
 
-      <form action={action}>
-        <TextInput
-          name="email"
+      <div className="form-control mt-2">
+        <label htmlFor="email" className="label">
+          <span className="label-text">Email</span>
+        </label>
+        <input
           type="email"
-          state={loading}
-          errors={errors?.fieldErrors?.email}
+          name="email"
+          id="email"
+          autoComplete="email"
+          className="input-bordered input w-full"
+          disabled={loading}
         />
+        <Errors errors={errors?.fieldErrors?.email} />
+      </div>
 
-        <TextInput
-          name="password"
+      <div className="form-control mt-2">
+        <label htmlFor="password" className="label">
+          <span className="label-text">Password</span>
+        </label>
+        <input
           type="password"
-          state={loading}
-          errors={errors?.fieldErrors?.password}
+          name="password"
+          id="password"
+          className="input-bordered input w-full"
+          disabled={loading}
         />
+        <Errors errors={errors?.fieldErrors?.password} />
+      </div>
 
-        <div className="space-y-4">
-          <button className="btn-primary btn-block btn mt-4" disabled={loading}>
-            Sign in
-          </button>
-          <p className="text-center">
-            Don&apos;t have an account?{" "}
-            <Link href="/signup" className="link-hover link font-bold">
-              Sign up
-            </Link>{" "}
-            for free.
-          </p>
-        </div>
-      </form>
-    </>
+      <div className="mt-6 space-y-2">
+        <button className="btn-block btn" disabled={loading}>
+          Sign in
+        </button>
+        <p className="text-center text-sm">
+          Don&apos;t have an account?{" "}
+          <Link href="/signup" className="link-hover link font-bold">
+            Sign up
+          </Link>{" "}
+          for free.
+        </p>
+      </div>
+    </form>
   );
 }

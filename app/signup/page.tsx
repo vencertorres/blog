@@ -20,9 +20,13 @@ export default function SignUp() {
   }
 
   return (
-    <>
-      <h1 className="text-center text-2xl">Sign Up</h1>
-      <Form signUp={action} />
-    </>
+    <main className="hero min-h-[calc(100vh_-_4.1rem)] bg-base-200 px-4">
+      <div className="card bg-base-100 shadow-2xl">
+        <div className="card-body">
+          <h1 className="text-center text-xl font-medium">Sign Up</h1>
+          <Form signUp={action} />
+        </div>
+      </div>
+    </main>
   );
 }
