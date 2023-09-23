@@ -28,7 +28,7 @@ export default function Login() {
 		setIsLoading(false);
 
 		if (response?.ok) {
-			router.refresh();
+			return router.refresh();
 		}
 
 		toast.error(response?.error!);
