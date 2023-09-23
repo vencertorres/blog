@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
-export default function Login() {
+export default function LoginForm() {
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
 

@@ -1,16 +1,16 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Form from './form';
+import RegisterForm from './form';
 
 export const metadata: Metadata = {
 	title: 'Register',
 	description: 'Create an account to get started.',
 };
 
-export default function Register() {
+export default function RegisterPage() {
 	return (
 		<div>
-			<Form />
+			<RegisterForm />
 
 			<p className="mt-10 text-center text-sm text-gray-500">
 				Already have an account?{' '}

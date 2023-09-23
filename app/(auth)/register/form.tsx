@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
-export default function Form() {
+export default function RegisterForm() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [errors, setErrors] = useState<FieldErrors | null>(null);
 	const router = useRouter();
