@@ -1,0 +1,79 @@
+'use client';
+
+import { FieldErrors } from '@/app/api/register/route';
+import Button from '@/components/Button';
+import Errors from '@/components/Errors';
+import Input from '@/components/Input';
+import Label from '@/components/Label';
+import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+
+export default function Form() {
+	const [isLoading, setIsLoading] = useState(false);
+	const [errors, setErrors] = useState<FieldErrors | null>(null);
+	const router = useRouter();
+
+	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+		setIsLoading(true);
+		setErrors(null);
+
+		const formData = new FormData(event.currentTarget);
+
+		const response = await fetch('/api/register', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(Object.fromEntries(formData.entries())),
+		});
+
+		setIsLoading(false);
+
+		if (response?.ok) {
+			router.refresh();
+			return router.push('/login');
+		}
+
+		if (response.status === 500) {
+			return toast.error('Internal server error');
+		}
+
+		const body = await response.json();
+
+		setErrors(body.errors);
+	}
+
+	return (
+		<div>
+			<Toaster />
+
+			<form
+				onSubmit={handleSubmit}
+				className="space-y-6 rounded-md bg-white p-6 shadow sm:mx-auto sm:w-full sm:max-w-sm"
+			>
+				<div>
+					<Label htmlFor="name">Name</Label>
+					<Input type="text" id="name" disabled={isLoading} required />
+					<Errors errors={errors?.name?._errors} />
+				</div>
+				<div>
+					<Label htmlFor="username">Username</Label>
+					<Input type="text" id="username" disabled={isLoading} required />
+					<Errors errors={errors?.username?._errors} />
+				</div>
+				<div>
+					<Label htmlFor="password">Password</Label>
+					<Input type="password" id="password" disabled={isLoading} required />
+					<Errors errors={errors?.password?._errors} />
+				</div>
+				<Button type="submit" className="w-full" disabled={isLoading}>
+					{isLoading && <Loader2 className="mr-1 h-4 w-4 animate-spin" />}
+					Register
+				</Button>
+			</form>
+		</div>
+	);
+}
