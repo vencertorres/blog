@@ -29,7 +29,6 @@ export default function Login() {
 
 		if (response?.ok) {
 			router.refresh();
-			return router.push('/dashboard');
 		}
 
 		toast.error(response?.error!);
@@ -45,11 +44,23 @@ export default function Login() {
 			>
 				<div>
 					<Label htmlFor="username">Username</Label>
-					<Input type="text" id="username" disabled={isLoading} required />
+					<Input
+						type="text"
+						id="username"
+						autoComplete="username"
+						disabled={isLoading}
+						required
+					/>
 				</div>
 				<div>
 					<Label htmlFor="password">Password</Label>
-					<Input type="password" id="password" disabled={isLoading} required />
+					<Input
+						type="password"
+						id="password"
+						autoComplete="current-password"
+						disabled={isLoading}
+						required
+					/>
 				</div>
 				<Button type="submit" className="w-full" disabled={isLoading}>
 					{isLoading && <Loader2 className="mr-1 h-4 w-4 animate-spin" />}

@@ -33,15 +33,14 @@ export default function Form() {
 		setIsLoading(false);
 
 		if (response?.ok) {
-			router.refresh();
 			return router.push('/login');
 		}
 
-		if (response.status === 500) {
-			return toast.error('Internal server error');
-		}
-
 		const body = await response.json();
+
+		if (response.status === 500) {
+			return toast.error(body.error);
+		}
 
 		setErrors(body.errors);
 	}
@@ -56,17 +55,35 @@ export default function Form() {
 			>
 				<div>
 					<Label htmlFor="name">Name</Label>
-					<Input type="text" id="name" disabled={isLoading} required />
+					<Input
+						type="text"
+						id="name"
+						autoComplete="name"
+						disabled={isLoading}
+						required
+					/>
 					<Errors errors={errors?.name?._errors} />
 				</div>
 				<div>
 					<Label htmlFor="username">Username</Label>
-					<Input type="text" id="username" disabled={isLoading} required />
+					<Input
+						type="text"
+						id="username"
+						autoComplete="username"
+						disabled={isLoading}
+						required
+					/>
 					<Errors errors={errors?.username?._errors} />
 				</div>
 				<div>
 					<Label htmlFor="password">Password</Label>
-					<Input type="password" id="password" disabled={isLoading} required />
+					<Input
+						type="password"
+						id="password"
+						autoComplete="new-password"
+						disabled={isLoading}
+						required
+					/>
 					<Errors errors={errors?.password?._errors} />
 				</div>
 				<Button type="submit" className="w-full" disabled={isLoading}>
