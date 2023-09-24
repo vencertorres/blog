@@ -1,16 +1,15 @@
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
-import { getServerSession } from 'next-auth';
+import { getCurrentUser } from '@/lib/auth';
 import Link from 'next/link';
 import UserNav from './UserNav';
 
 export default async function MainNav() {
-	const session = await getServerSession(authOptions);
+	const user = await getCurrentUser();
 
 	return (
 		<nav className="border-b bg-white px-6">
 			<div className="container mx-auto flex h-16 items-center justify-between">
 				<Link href="/">Blog.</Link>
-				{session ? <UserNav user={session.user} /> : <Link href="/login">Log in</Link>}
+				{user ? <UserNav user={user} /> : <Link href="/login">Log in</Link>}
 			</div>
 		</nav>
 	);
