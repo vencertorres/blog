@@ -2,9 +2,9 @@ import MainNav from '@/components/MainNav';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<div className="min-h-screen bg-gray-50">
+		<div className="flex min-h-screen flex-col bg-gray-50">
 			<MainNav />
-			{children}
+			<div className="flex flex-1 flex-col">{children}</div>
 		</div>
 	);
 }
