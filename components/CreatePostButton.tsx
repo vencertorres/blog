@@ -1,9 +1,9 @@
 'use client';
 
-import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { MouseEvent, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { LoadingButton } from './LoadingButton';
 
 export default function CreatePostButton() {
 	const [isLoading, setIsLoading] = useState(false);
@@ -37,14 +37,9 @@ export default function CreatePostButton() {
 		<>
 			<Toaster />
 
-			<button
-				onClick={handleClick}
-				className="inline-flex w-32 items-center justify-center rounded-md bg-sky-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:pointer-events-none disabled:opacity-50 "
-				disabled={isLoading}
-			>
-				{isLoading && <Loader2 className="mr-1 h-4 w-4 animate-spin" aria-hidden="true" />}
+			<LoadingButton onClick={handleClick} className="w-32" disabled={isLoading}>
 				Create post
-			</button>
+			</LoadingButton>
 		</>
 	);
 }

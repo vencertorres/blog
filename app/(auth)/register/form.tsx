@@ -1,11 +1,10 @@
 'use client';
 
 import { FieldErrors } from '@/app/api/register/route';
-import Button from '@/components/Button';
 import Errors from '@/components/Errors';
 import Input from '@/components/Input';
 import Label from '@/components/Label';
-import { Loader2 } from 'lucide-react';
+import { LoadingButton } from '@/components/LoadingButton';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
@@ -86,10 +85,9 @@ export default function RegisterForm() {
 					/>
 					<Errors errors={errors?.password?._errors} />
 				</div>
-				<Button type="submit" className="w-full" disabled={isLoading}>
-					{isLoading && <Loader2 className="mr-1 h-4 w-4 animate-spin" />}
+				<LoadingButton type="submit" className="w-full" disabled={isLoading}>
 					Register
-				</Button>
+				</LoadingButton>
 			</form>
 		</div>
 	);

@@ -1,9 +1,8 @@
 'use client';
 
-import Button from '@/components/Button';
 import Input from '@/components/Input';
 import Label from '@/components/Label';
-import { Loader2 } from 'lucide-react';
+import { LoadingButton } from '@/components/LoadingButton';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
@@ -62,10 +61,9 @@ export default function LoginForm() {
 						required
 					/>
 				</div>
-				<Button type="submit" className="w-full" disabled={isLoading}>
-					{isLoading && <Loader2 className="mr-1 h-4 w-4 animate-spin" />}
+				<LoadingButton type="submit" className="w-full" disabled={isLoading}>
 					Log in
-				</Button>
+				</LoadingButton>
 			</form>
 		</div>
 	);
