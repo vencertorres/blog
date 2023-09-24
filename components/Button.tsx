@@ -1,22 +1,34 @@
+import { MouseEvent } from 'react';
+
+export interface ButtonProps {
+	type?: 'submit' | 'reset' | 'button';
+	variant?: 'normal' | 'light' | 'destructive';
+	disabled?: boolean;
+	onClick?: (event: MouseEvent<HTMLButtonElement>) => any;
+	className?: string;
+	children: React.ReactNode;
+}
+
+const variants = {
+	normal: 'bg-sky-500 hover:bg-sky-600 focus-visible:outline-sky-600 text-white',
+	light: 'bg-gray-200 hover:bg-gray-300 focus-visible:outline-gray-600 text-gray-900',
+	destructive: 'bg-red-500 hover:bg-red-600 focus-visible:outline-red-600 text-white',
+};
+
 export default function Button({
 	type = 'button',
-	className,
+	variant = 'normal',
 	disabled = false,
+	onClick,
+	className,
 	children,
-}: {
-	type?: 'submit' | 'reset' | 'button';
-	className?: string;
-	disabled?: boolean;
-	children: React.ReactNode;
-}) {
+}: ButtonProps) {
 	return (
 		<button
 			type={type}
-			className={
-				'inline-flex items-center justify-center rounded-md bg-sky-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 disabled:pointer-events-none disabled:opacity-50 ' +
-				className
-			}
 			disabled={disabled}
+			onClick={onClick}
+			className={`inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50 ${variants[variant]} ${className}`}
 		>
 			{children}
 		</button>

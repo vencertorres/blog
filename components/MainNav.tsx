@@ -7,7 +7,7 @@ export default async function MainNav() {
 	const session = await getServerSession(authOptions);
 
 	return (
-		<nav className="border-b">
+		<nav className="border-b bg-white">
 			<div className="container mx-auto flex h-16 items-center justify-between">
 				<Link href="/">Blog.</Link>
 				{session ? <UserNav user={session.user} /> : <Link href="/login">Log in</Link>}

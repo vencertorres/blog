@@ -28,6 +28,7 @@ model Post {
   content     Json?
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @default(now()) @map("updated_at")
+  published   Boolean  @default(false)
   author      User     @relation(fields: [authorId], references: [id])
   authorId    String   @db.ObjectId
 }
