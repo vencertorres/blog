@@ -16,7 +16,7 @@ export default async function Home() {
 	});
 
 	return (
-		<div className="mx-auto max-w-prose space-y-10">
+		<div className="mx-auto max-w-prose space-y-10 px-6 py-12">
 			{posts.map((post) => (
 				<article key={post.id} className="group first:border-b-2 first:py-8">
 					<div className="text-xs font-medium">

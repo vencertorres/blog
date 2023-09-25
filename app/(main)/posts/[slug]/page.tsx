@@ -35,7 +35,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
 	}
 
 	return (
-		<article className="prose mx-auto">
+		<article className="prose mx-auto px-6 py-12">
 			<div className="not-prose mb-2 border-b-2 pb-4">
 				<h1 className="text-4xl font-bold text-gray-900">{post.title}</h1>
 				<p className="text-gray-500">{post.description}</p>
