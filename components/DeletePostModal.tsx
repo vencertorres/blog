@@ -57,12 +57,9 @@ export default function DeletePostButton({ slug }: { slug: string }) {
 				</div>
 			</Modal>
 
-			<button
-				onClick={() => setIsOpen(true)}
-				className="inline-flex items-center justify-center px-3 py-1.5 text-sm text-red-500 hover:underline"
-			>
+			<Button variant="link" className="text-red-500" onClick={() => setIsOpen(true)}>
 				Delete
-			</button>
+			</Button>
 		</>
 	);
 }
