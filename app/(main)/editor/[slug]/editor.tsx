@@ -2,6 +2,7 @@
 
 import { LoadingButton } from '@/components/LoadingButton';
 import TextArea from '@/components/TextArea';
+// import TextArea from '@/components/TextArea';
 import { tools } from '@/lib/editorTools';
 import EditorJS from '@editorjs/editorjs';
 import { Post } from '@prisma/client';
@@ -61,18 +62,22 @@ export default function Editor({ post }: { post: Post }) {
 			<Toaster />
 
 			<form onSubmit={handleSubmit} className="mx-auto max-w-prose space-y-6">
+				<label htmlFor="title" className="sr-only">
+					Title
+				</label>
 				<TextArea
 					name="title"
-					ariaLabel="title"
 					placeholder="Title"
 					defaultValue={post.title}
 					disabled={isLoading}
 					required
 					className="text-4xl font-bold"
 				/>
+				<label htmlFor="description" className="sr-only">
+					Description
+				</label>
 				<TextArea
 					name="description"
-					ariaLabel="description"
 					placeholder="Description"
 					defaultValue={post.description ?? ''}
 					disabled={isLoading}
