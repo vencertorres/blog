@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.link {
+	text-decoration: none;
+	background-image: linear-gradient(transparent, transparent), linear-gradient(#0ea5e9, #0ea5e9);
+	background-size:
+		100% 3px,
+		0 3px;
+	background-position:
+		100% 100%,
+		0 100%;
+	background-repeat: no-repeat;
+	transition:
+		background-size 200ms linear,
+		color 200ms linear;
+}
+
+.link:hover {
+	color: #0ea5e9;
+	background-size:
+		0 3px,
+		100% 3px;
+}

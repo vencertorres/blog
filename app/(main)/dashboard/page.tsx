@@ -1,8 +1,8 @@
 import CreatePostButton from '@/components/CreatePostButton';
 import DeletePostModal from '@/components/DeletePostModal';
 import { getCurrentUser } from '@/lib/auth';
-import { format } from '@/lib/date';
 import prisma from '@/lib/db';
+import { format } from 'date-fns';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -58,7 +58,7 @@ export default async function Dashboard() {
 										</Link>
 									</td>
 									<td className="p-4 align-middle text-sm text-gray-700">
-										{format(post.createdAt)}
+										{format(post.createdAt, 'LLL d, yyyy')}
 									</td>
 									<td className="p-4 align-middle text-sm text-gray-700">
 										{post.published ? 'Published' : 'Unpublished'}
