@@ -1,8 +1,7 @@
 'use client';
 
-import { LoadingButton } from '@/components/LoadingButton';
+import LoadingButton from '@/components/LoadingButton';
 import TextArea from '@/components/TextArea';
-// import TextArea from '@/components/TextArea';
 import { tools } from '@/lib/editorTools';
 import EditorJS from '@editorjs/editorjs';
 import { Post } from '@prisma/client';

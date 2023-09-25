@@ -4,7 +4,7 @@ import { FieldErrors } from '@/app/api/register/route';
 import Errors from '@/components/Errors';
 import Input from '@/components/Input';
 import Label from '@/components/Label';
-import { LoadingButton } from '@/components/LoadingButton';
+import LoadingButton from '@/components/LoadingButton';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { MouseEvent, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import Button from './Button';
-import { LoadingButton } from './LoadingButton';
+import LoadingButton from './LoadingButton';
 import Modal from './Modal';
 
 export default function DeletePostButton({ slug }: { slug: string }) {
@@ -48,7 +48,7 @@ export default function DeletePostButton({ slug }: { slug: string }) {
 				</div>
 
 				<div className="mt-4 flex justify-end gap-4">
-					<Button variant="light" onClick={closeModal} disabled={isLoading}>
+					<Button variant="secondary" onClick={closeModal} disabled={isLoading}>
 						Cancel
 					</Button>
 					<LoadingButton variant="destructive" disabled={isLoading} onClick={deletePost}>

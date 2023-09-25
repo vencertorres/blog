@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { MouseEvent, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { LoadingButton } from './LoadingButton';
+import LoadingButton from './LoadingButton';
 
 export default function CreatePostButton() {
 	const [isLoading, setIsLoading] = useState(false);

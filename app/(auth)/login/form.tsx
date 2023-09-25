@@ -2,7 +2,7 @@
 
 import Input from '@/components/Input';
 import Label from '@/components/Label';
-import { LoadingButton } from '@/components/LoadingButton';
+import LoadingButton from '@/components/LoadingButton';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
