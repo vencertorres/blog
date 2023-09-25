@@ -21,7 +21,7 @@ export default async function Home() {
 				<article key={post.id} className="group first:border-b-2 first:py-8">
 					<div className="text-xs font-medium">
 						<Link
-							href={`/profile/@${post.author.username}`}
+							href={`/profile/${post.author.username}`}
 							className="text-sky-500 underline hover:decoration-2"
 						>
 							{post.author.name}

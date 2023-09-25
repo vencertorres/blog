@@ -42,7 +42,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
 			</div>
 			<div className="not-prose text-xs font-medium">
 				<Link
-					href={`/profile/@${post.author.username}`}
+					href={`/profile/${post.author.username}`}
 					className="text-sky-500 underline hover:decoration-2"
 				>
 					{post.author.name}
