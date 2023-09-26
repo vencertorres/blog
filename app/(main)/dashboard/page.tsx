@@ -15,7 +15,7 @@ export default async function Dashboard() {
 
 	const posts = await prisma.post.findMany({
 		where: {
-			authorId: user?.id,
+			author_id: user?.id,
 		},
 	});
 

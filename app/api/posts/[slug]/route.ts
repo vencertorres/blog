@@ -35,7 +35,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { slug: 
 				description: validated.description,
 				content: validated.content,
 				published: validated.published,
-				authorId: user.id,
+				author_id: user.id,
 			},
 		});
 

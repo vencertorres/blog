@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
 			data: {
 				slug: slugify(validated.title + ' ' + Date.now()),
 				title: validated.title,
-				authorId: user.id,
+				author_id: user.id,
 			},
 		});
 
