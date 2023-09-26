@@ -13,7 +13,7 @@ export type ButtonProps = JSX.IntrinsicElements['button'] & {
 	variant?: 'primary' | 'secondary' | 'destructive' | 'link';
 };
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(props, ref) {
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(props, ref) {
 	const { className, children, variant = 'primary', ...rest } = props;
 
 	const _className = `inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm leading-6 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50 ${variants[variant]} ${className}`;

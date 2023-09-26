@@ -1,15 +1,20 @@
 'use client';
 
+import { UpdatePost } from '@/app/api/posts/[slug]/route';
 import LoadingButton from '@/components/LoadingButton';
 import TextArea from '@/components/TextArea';
 import { tools } from '@/lib/editorTools';
 import EditorJS from '@editorjs/editorjs';
 import { Post } from '@prisma/client';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function Editor({ post }: { post: Post }) {
+	const [fields, setFields] = useState<UpdatePost>({
+		title: post.title,
+		description: post.description ?? '',
+	});
 	const [isLoading, setIsLoading] = useState(false);
 	const editorCore = useRef<EditorJS>();
 	const router = useRouter();
@@ -26,12 +31,15 @@ export default function Editor({ post }: { post: Post }) {
 		}
 	}, [post]);
 
-	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+	function handleChange(event: ChangeEvent<HTMLTextAreaElement>) {
+		setFields({ ...fields, [event.target.name]: event.target.value });
+	}
+
+	async function handleSubmit(event: MouseEvent<HTMLButtonElement>) {
 		event.preventDefault();
 		setIsLoading(true);
 
-		const formData = new FormData(event.currentTarget);
-		const content = await editorCore.current?.save();
+		const isPublish = event.currentTarget.name === 'publish';
 
 		const response = await fetch(`/api/posts/${post.slug}`, {
 			method: 'PATCH',
@@ -39,35 +47,44 @@ export default function Editor({ post }: { post: Post }) {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				title: formData.get('title'),
-				description: formData.get('description'),
-				content,
+				title: fields.title,
+				description: fields.description,
+				content: await editorCore.current?.save(),
+				published: isPublish,
 			}),
 		});
 
 		setIsLoading(false);
 
 		if (!response.ok) {
-			return toast.error('Failed to save post. Please try again.');
+			return toast.error(
+				`Failed to ${isPublish ? 'publish' : 'save'} post. Please try again.`,
+			);
 		}
 
 		const body = await response.json();
 
-		router.push(`/posts/${body.slug}`);
+		if (isPublish) {
+			return router.push(`/posts/${body.slug}`);
+		}
+
+		return router.push(`/editor/${body.slug}`);
 	}
 
 	return (
 		<div>
 			<Toaster />
 
-			<form onSubmit={handleSubmit} className="mx-auto max-w-prose space-y-6">
+			<form className="mx-auto max-w-prose space-y-6">
 				<label htmlFor="title" className="sr-only">
 					Title
 				</label>
 				<TextArea
+					id="title"
 					name="title"
 					placeholder="Title"
-					defaultValue={post.title}
+					value={fields.title}
+					onChange={handleChange}
 					disabled={isLoading}
 					required
 					className="text-4xl font-bold"
@@ -76,15 +93,30 @@ export default function Editor({ post }: { post: Post }) {
 					Description
 				</label>
 				<TextArea
+					id="description"
 					name="description"
 					placeholder="Description"
-					defaultValue={post.description ?? ''}
+					value={fields.description}
+					onChange={handleChange}
 					disabled={isLoading}
 					required
 				/>
 				<div id="editor" className="prose"></div>
-				<LoadingButton type="submit" disabled={isLoading}>
+				<LoadingButton
+					name="publish"
+					className="mr-2"
+					onClick={handleSubmit}
+					disabled={isLoading}
+				>
 					Publish
+				</LoadingButton>
+				<LoadingButton
+					name="save"
+					variant="secondary"
+					onClick={handleSubmit}
+					disabled={isLoading}
+				>
+					Save as draft
 				</LoadingButton>
 			</form>
 		</div>

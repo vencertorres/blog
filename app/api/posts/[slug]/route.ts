@@ -4,13 +4,14 @@ import slugify from '@sindresorhus/slugify';
 import { NextResponse, type NextRequest } from 'next/server';
 import { ZodError, z } from 'zod';
 
-const UpdatePost = z.object({
+const UpdatePostSchema = z.object({
 	title: z.string().trim().min(1, 'Required'),
 	description: z.string().trim().min(1, 'Required'),
 	content: z.any(),
+	published: z.boolean().optional(),
 });
 
-export type FieldErrors = z.inferFormattedError<typeof UpdatePost>;
+export type UpdatePost = z.infer<typeof UpdatePostSchema>;
 
 export async function PATCH(request: NextRequest, { params }: { params: { slug: string } }) {
 	const user = await getCurrentUser();
@@ -22,7 +23,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { slug: 
 	try {
 		const data = await request.json();
 
-		const validated = UpdatePost.parse(data);
+		const validated = UpdatePostSchema.parse(data);
 
 		const post = await prisma.post.update({
 			where: {
@@ -33,7 +34,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { slug: 
 				title: validated.title,
 				description: validated.description,
 				content: validated.content,
-				published: true,
+				published: validated.published,
 				authorId: user.id,
 			},
 		});
